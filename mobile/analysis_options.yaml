@@ -1,0 +1,12 @@
+# Flutter lint qoidalari (flutter_lints paketi asosida).
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    # Generatsiya qilingan Drift fayllari tahlildan chetda (TODO 19.3).
+    - "**/*.g.dart"
+
+linter:
+  rules:
+    # Hujjatlash (docstring) tavsiya etiladi, lekin majburiy emas.
+    public_member_api_docs: false

@@ -1,0 +1,26 @@
+# MTT Menejer Diagnostika — Backend bog'liqliklari
+# Texnologik stek: FastAPI + SQLAlchemy 2.x + PostgreSQL + JWT (design.md)
+
+# --- Web framework va server ---
+fastapi>=0.111,<1.0
+uvicorn[standard]>=0.30,<1.0
+python-multipart>=0.0.9          # fayl yuklash (multipart/form-data), R11
+
+# --- Ma'lumotlar bazasi / ORM / migratsiya ---
+sqlalchemy>=2.0,<3.0
+alembic>=1.13,<2.0
+psycopg[binary]>=3.1,<4.0        # PostgreSQL drayveri
+
+# --- Autentifikatsiya / xavfsizlik ---
+pyjwt>=2.8,<3.0
+passlib[bcrypt]>=1.7,<2.0        # parol xeshlash (R1.4, R17.1)
+argon2-cffi>=23.1                # muqobil parol xeshlash backend
+
+# --- Validatsiya / konfiguratsiya ---
+pydantic>=2.7,<3.0
+pydantic-settings>=2.3,<3.0
+
+# --- Testlar ---
+pytest>=8.2,<9.0
+hypothesis>=6.100,<7.0           # property-based testing (kamida 100 iteratsiya)
+httpx>=0.27                      # FastAPI TestClient/AsyncClient uchun

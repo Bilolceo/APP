@@ -1,0 +1,76 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // Flutter Gradle Plugin so'nggi flutter_tools dan yuklanadi.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace = "uz.mtt.menejer_diagnostika"
+
+    // Pluginlar (jni/sqlite3_flutter_libs) talabi bo'yicha 35+ kerak.
+    compileSdk = 36
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId = "uz.mtt.menejer_diagnostika"
+        // R19.1 — Android 8.0+ (API 26).
+        minSdk = 26
+        targetSdk = 36
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+    }
+
+    buildTypes {
+        release {
+            // TODO(21.x): Ishlab chiqarish uchun release imzo (signing) sozlang.
+            // Hozircha debug kalit bilan imzolanadi, shunda `flutter build apk`
+            // skeleton bosqichida ishlaydi.
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Firebase Android kutubxonalari Flutter pluginlari tomonidan boshqariladi.
+}
+
+// `google-services.json` mavjud bo'lsa pluginni qo'llaymiz (20.3).
+if (file("google-services.json").exists()) {
+    apply plugin: "com.google.gms.google-services"
+}

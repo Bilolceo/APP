@@ -1,0 +1,81 @@
+# =============================================================================
+# MTT Menejer Diagnostika — Mobil ilova (Flutter / Android 8.0+)
+# =============================================================================
+# Ushbu fayl loyiha bog'liqliklari va meta-ma'lumotlarini belgilaydi.
+# Arxitektura (design.md): Presentation -> State (Riverpod) -> Repository
+# -> data manbalari (ApiClient/Dio, LocalCache/Drift, SyncQueue).
+#
+# -----------------------------------------------------------------------------
+# Property-Based Testing (PBT) konfiguratsiyasi — MUHIM:
+# -----------------------------------------------------------------------------
+# Mobil tomon uchun PBT kutubxonasi: `glados` — bu Dart ekotizimidagi idiomatik
+# generativ test kutubxonasi bo'lib, JavaScript'dagi `fast_check`ning
+# ekvivalentidir (design.md "fast_check yoki shunga o'xshash generativ kutubxona"
+# talabini qondiradi).
+#
+# QOIDA: Har bir korrektlik xususiyati (Property) AYNAN bitta PBT bilan
+# amalga oshiriladi va har bir PBT kamida 100 (>=100) iteratsiya bilan ishlaydi.
+# `glados` da bu `Glados(...)` konstruktorida `numRuns: 100` (yoki undan ko'p)
+# parametri orqali sozlanadi. Standart konvensiya: 100 iteratsiya.
+# Tag formati: "Feature: mtt-menejer-diagnostika, Property {N}: {matn}".
+# =============================================================================
+
+name: mtt_menejer_diagnostika
+description: "MTT rahbarlari kompetensiyalarini diagnostika qiluvchi mobil ilova (Android 8.0+)."
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management (R19.2 — Riverpod)
+  flutter_riverpod: ^2.5.1
+
+  # API mijozi (Dio + JWT interceptor — TODO 19.2)
+  dio: ^5.4.0
+
+  # Offline lokal kesh (Drift/SQLite — TODO 19.3, R19.3)
+  drift: ^2.16.0
+  sqlite3_flutter_libs: ^0.5.20
+  path_provider: ^2.1.2
+  path: ^1.9.0
+
+  # Tokenlarni xavfsiz saqlash (R17 — JWT/refresh)
+  flutter_secure_storage: ^9.0.0
+
+  # Push bildirishnomalar — FCM (R16, TODO 20.3)
+  firebase_core: ^4.9.0
+  firebase_messaging: ^16.2.2
+
+  # Analitika diagrammalari: radar / line / progress (R9.2)
+  fl_chart: ^0.66.2
+
+  # Material ikonkalar uchun
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Drift kod generatsiyasi (TODO 19.3): `dart run build_runner build`
+  drift_dev: ^2.16.0
+  build_runner: ^2.4.8
+
+  # Property-Based Testing (fast_check ekvivalenti) — kamida 100 iteratsiya
+  # Eslatma: glados `package:test` ga tayanadi; flutter_test bilan birga
+  # ishlatilganda `flutter pub get` paytida versiya yechimini tekshiring.
+  glados: ^1.1.7
+
+  # Lint qoidalari
+  flutter_lints: ^3.0.1
+
+# Flutter resurslar konfiguratsiyasi
+flutter:
+  uses-material-design: true
+  # assets:
+  #   - assets/images/   # TODO 20.x — splash/onboarding rasmlari

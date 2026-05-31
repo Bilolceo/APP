@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual muhitlar
+.venv/
+venv/
+env/
+
+# Test / tool keshlari
+.pytest_cache/
+.hypothesis/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Muhit va maxfiy fayllar
+.env
+*.env.local
+
+# Yuklangan fayllar (lokal fayl xotirasi)
+var/
