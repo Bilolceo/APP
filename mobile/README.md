@@ -56,8 +56,15 @@ flutter test
 # 5) Ilovani qurilma/emulyatorda ishga tushirish
 flutter run
 
+# 5.1) Real telefonda backendga ulash (tarmoq xatosi bo'lsa):
+#      <LAN_IP> o'rniga backend ishlayotgan kompyuter IP'sini yozing.
+flutter run --dart-define=API_BASE_URL=http://<LAN_IP>:8010
+
 # 6) MVP smoke (analyze + test + android debug build)
 ./scripts/mvp_smoke.sh
+
+# 7) APK build (real telefon uchun API manzil bilan)
+flutter build apk --debug --dart-define=API_BASE_URL=http://<LAN_IP>:8010
 ```
 
 ## Property-Based Testing (PBT)

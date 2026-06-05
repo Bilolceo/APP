@@ -13,9 +13,12 @@ class AppConstants {
 
   /// Backend REST API'ning bazaviy manzili.
   ///
-  /// TODO(19.2): Ishlab chiqarish/test muhitiga qarab `--dart-define` orqali
-  /// almashtiriladigan qiling. Hozircha placeholder qiymat.
-  static const String apiBaseUrl = 'http://10.0.2.2:8000';
+  /// `API_BASE_URL` `--dart-define` orqali berilsa o'sha qiymat ishlatiladi.
+  /// Berilmasa Android emulator uchun standart `10.0.2.2` qoldiriladi.
+  static const String apiBaseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://10.0.2.2:8000',
+  );
 
   /// REST API versiya prefiksi (backend bilan mos: `/api/v1`).
   static const String apiVersionPrefix = '/api/v1';
