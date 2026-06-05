@@ -67,6 +67,25 @@ flutter run --dart-define=API_BASE_URL=http://<LAN_IP>:8010
 flutter build apk --debug --dart-define=API_BASE_URL=http://<LAN_IP>:8010
 ```
 
+Joriy MVP backend shu Mac'da ishlaganda build:
+
+```bash
+flutter build apk --debug --dart-define=API_BASE_URL=http://172.16.240.124:8010
+```
+
+APK manzili:
+
+```text
+mobile/build/app/outputs/flutter-apk/app-debug.apk
+```
+
+Demo login:
+
+```text
+Telefon: +998901112236
+Parol: secret123
+```
+
 ## Property-Based Testing (PBT)
 
 - Kutubxona: **`glados`** — Dart uchun PBT freymvorki (`fast_check` ekvivalenti).
@@ -91,11 +110,11 @@ ro'yxatdan o'tkaziladi, token yangilanganda esa qayta yuboriladi.
 
 ## Build/test holati
 
-2026-05-31 holatiga ko'ra quyidagilar muvaffaqiyatli tekshirildi:
+2026-06-05 holatiga ko'ra quyidagilar muvaffaqiyatli tekshirildi:
 
 - `flutter pub get`
 - `flutter test`
-- `flutter build apk --debug`
+- `flutter build apk --debug --dart-define=API_BASE_URL=http://172.16.240.124:8010`
 - `./scripts/mvp_smoke.sh` (doctor + pub get + drift codegen + analyze + test + build)
 
 Eslatma: `flutter doctor` iOS/Xcode bo'yicha ogohlantirish berishi mumkin, bu

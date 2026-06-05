@@ -4,8 +4,9 @@ Maktabgacha ta'lim tashkiloti (MTT) rahbarlarini diagnostika qilish tizimining
 backend xizmati. Texnologik stek: **FastAPI (Python 3.11+)**, **SQLAlchemy 2.x +
 Alembic**, **PostgreSQL 15+**, **JWT (PyJWT) + bcrypt/argon2**.
 
-> Bu — 1.1-vazifa doirasida yaratilgan loyiha skeletoni. Domen mantig'i,
-> modellar, migratsiyalar va servislar keyingi vazifalarda qo'shiladi.
+> ✅ **Holat:** Backend MVP holatiga keltirilgan: REST API, auth/JWT,
+> diagnostika testlari, natijalar, analitika, portfolio, RBAC, migratsiyalar va
+> demo seed data mavjud.
 
 ## Loyiha tuzilmasi
 
@@ -43,10 +44,32 @@ uvicorn app.main:app --reload
 
 ```bash
 cp .env.example .env   # qiymatlarni to'ldiring
-docker compose up --build
+docker compose up -d --build
+docker compose exec -T backend alembic upgrade head
 ```
 
-Bu backend (8000-port) va PostgreSQL 15 (5432-port) xizmatlarini ishga tushiradi.
+Bu backendni hostda **8010-port** orqali va PostgreSQL 15 ni **5432-port**
+orqali ishga tushiradi.
+
+- Salomatlik tekshiruvi: <http://localhost:8010/health>
+- OpenAPI hujjatlari: <http://localhost:8010/docs>
+
+## MVP demo data
+
+Alembic `head` ga ko'tarilganda quyidagilar idempotent seed qilinadi:
+
+- rollar: `Rahbar`, `Ekspert`, `Administrator`
+- kompetensiyalar va tavsiyalar
+- demo tashkilot/hudud
+- demo rahbar foydalanuvchi
+- 6 savolli faol demo diagnostika testi
+
+Demo login:
+
+```text
+Telefon: +998901112236
+Parol: secret123
+```
 
 ## Testlar
 
