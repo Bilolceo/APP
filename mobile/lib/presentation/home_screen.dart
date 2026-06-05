@@ -32,8 +32,14 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
     if (confirmed == true) {
-      // AuthGate logoutdan keyin avtomatik login ekraniga o'tkazadi.
       await ref.read(authStateProvider.notifier).logout();
+      if (!context.mounted) {
+        return;
+      }
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.login,
+        (route) => false,
+      );
     }
   }
 

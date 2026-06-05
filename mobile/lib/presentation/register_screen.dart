@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/auth_models.dart';
 import '../state/app_providers.dart';
 import '../state/auth_state.dart';
+import 'app_routes.dart';
 import 'validators.dart';
 import 'widgets/error_banner.dart';
 import 'widgets/loading_button.dart';
@@ -76,7 +77,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       experienceYears: _intOrNull(_experienceController),
       educationLevel: _trimmedOrNull(_educationController),
     );
-    await ref.read(authStateProvider.notifier).register(request);
+    final ok = await ref.read(authStateProvider.notifier).register(request);
+    if (!mounted || !ok) {
+      return;
+    }
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppRoutes.home,
+      (route) => false,
+    );
   }
 
   @override

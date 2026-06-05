@@ -41,12 +41,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    await ref.read(authStateProvider.notifier).login(
+    final ok = await ref.read(authStateProvider.notifier).login(
           phone: _phoneController.text.trim(),
           password: _passwordController.text,
         );
-    // Muvaffaqiyatda AuthGate avtomatik home'ga o'tkazadi; xato bo'lsa
-    // `authStateProvider.errorMessage` orqali banner ko'rinadi.
+    if (!mounted || !ok) {
+      return;
+    }
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppRoutes.home,
+      (route) => false,
+    );
   }
 
   @override
